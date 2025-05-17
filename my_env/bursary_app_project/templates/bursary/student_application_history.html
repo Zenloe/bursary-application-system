@@ -1,0 +1,135 @@
+{% extends 'bursary/studentbase.html' %}
+
+{% block content %}
+<head>
+<style>
+ 
+.application_history {
+    width: 80%;
+    margin: 20px auto; 
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9; 
+}
+
+.application_history h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; 
+}
+
+.application_history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.application_history th, .application_history td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; 
+}
+
+.application_history th {
+    background-color: #f2f2f2; 
+    font-weight: bold;
+    color: #555;
+}
+
+.application_history tr:hover {
+    background-color: #f5f5f5; 
+}
+
+.application_history a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.application_history a:hover {
+    background-color: #0056b3; 
+    color: white;
+}
+
+.application_history p {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-top: 20px;
+}
+
+
+
+@media (max-width: 768px) {
+    .application_history {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .application_history table {
+        font-size: 0.9em; 
+    }
+
+    .application_history th, .application_history td {
+        padding: 8px 10px; 
+        display: block; 
+        width: 100%; 
+    }
+
+    .application_history th {
+        text-align: left; 
+    }
+
+    .application_history tr {
+        border-bottom: 1px solid #ddd; 
+    }
+}
+.note {
+      text-align: center;
+      height: 50px;
+       background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+  
+
+  <div class="application_history">
+    <h2 class="note">Your Application History</h2>
+    
+    {% if applications %}
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th>Status</th>
+            <th>Submission Date</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for application in applications %}
+            <tr>
+              <td>{{ application.scheme }}</td>
+              <td>{{ application.status }}</td>
+              <td>{{ application.submission_date }}</td>
+              <td><a href="{% url 'application_detail' application.id %}">View</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>You have not submitted any applications yet.</p>
+    {% endif %}
+  </div>
+</body>
+{% endblock %}

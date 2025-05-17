@@ -1,0 +1,144 @@
+{% extends 'bursary/adminbase.html' %} 
+{% block content %}
+<style>
+    .all{
+        width: 80%;
+        margin: 20px auto;
+    }
+    .total-applications_users {
+        width: 80%; 
+        margin: 20px auto; 
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
+    
+    .total-applications h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333; 
+    }
+    
+    .total-applications table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    }
+    
+    .total-applications th, .total-applications td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd; 
+    }
+    
+    .total-applications th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        color: #555;
+    }
+    
+    .total-applications tr:hover {
+        background-color: #f5f5f5; 
+    }
+    
+    .total-applications a {
+        color: #007bff; 
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .total-applications a:hover {
+        background-color: #0056b3; 
+        color: white;
+    }
+    
+    .total-applications p {
+        text-align: center;
+        font-style: italic;
+        color: #777;
+        margin-top: 20px; 
+    }
+    
+ 
+    @media (max-width: 768px) {
+        .total-applications {
+            width: 80%;
+            padding: 15px;
+        }
+    
+        .total-applications table {
+            font-size: 0.9em; 
+        }
+    
+        .total-applications th, .total-applications td {
+            padding: 8px 10px; 
+            display: block; 
+            width: 100%; 
+        }
+    
+        .total-applications th {
+            text-align: left; 
+        }
+    
+        .total-applications tr {
+            border-bottom: 1px solid #ddd; 
+        }
+    }
+    .note {
+      text-align: center;
+      height: 60px;
+       background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+    
+</style>
+<div class="all">
+ <div id="applicationsTable" class="total-applications">
+    <h2 class="note">Applications</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Scheme</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in students_applications %}
+            <tr>
+                <td>{{ application.full_name }}</td>
+                <td>{{ application.scheme }}</td>
+                <td>{{ application.status }}</td>
+                <td>
+                    {% if application.status == "Pending" %}
+                        <form method="POST" action="{% url 'approve_application' application.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                    {% elif application.status == "Flagged" %}
+                        <a href="{% url 'review_applications' application.id %}" class="btn btn-warning">Review</a>
+                    {% else %}
+                        <span class="text-success">Approved</span>
+                    {% endif %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+ </div>
+</div>
+
+
+</body>
+
+</html>
+{% endblock %}

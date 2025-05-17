@@ -1,0 +1,353 @@
+{% extends 'bursary/studentbase.html' %} 
+{% block content %}
+<style>
+.application-details-container {
+    width: 70%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.application-details-container .header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.application-details-container .header h4 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.application-details-container .section {
+    margin-bottom: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.application-details-container .section-title {
+    font-size: 1.8em;
+    color: #0056b3;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.application-details-container .details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.application-details-container .detail-item {
+    flex: 1 1 48%; 
+    margin-bottom: 15px;
+}
+
+.application-details-container .detail-item p {
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+.application-details-container .detail-item strong {
+    font-weight: 600;
+    color: #555;
+}
+
+.application-details-container h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #007bff;
+    font-size: 1.5em;
+}
+
+.application-details-container .view-doc {
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px dashed #007bff;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.application-details-container .view-doc:hover {
+    color: #0056b3;
+    border-bottom: 1px solid #0056b3;
+}
+
+.application-details-container form {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.application-details-container .btn {
+    padding: 15px 30px;
+    margin: 0 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.application-details-container .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.application-details-container .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.application-details-container .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.application-details-container .btn-success:hover {
+    background-color: #218838;
+}
+
+.application-details-container .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+@media (max-width: 768px) {
+    .application-details-container {
+        width: 95%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .application-details-container .header h2 {
+        font-size: 2em;
+    }
+
+    .application-details-container .section-title {
+        font-size: 1.5em;
+    }
+
+    .application-details-container .detail-item {
+        flex: 1 1 100%;
+    }
+
+    .application-details-container .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+        margin: 5px;
+    }
+}
+.application-details-container .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.application-details-container .table th,
+.application-details-container .table td {
+    padding: 12px 15px; 
+    text-align: left;
+    border-bottom: 1px solid #eee; 
+}
+
+.application-details-container .table th {
+    background-color: #f5f5f5; 
+    font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+    .application-details-container .table {
+        display: block;
+        overflow-x: auto; 
+    }
+}
+.note {
+      text-align: center;
+      height: 50px;
+      background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<div class="application-details-container">
+    <div class="header">
+        <h4 class="note">Review Application</h4>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Personal Details</h3>
+        <table class="table">  <tbody>
+                <tr>
+                    <th>Scheme Name</th>
+                    <td>{{ application.scheme }}</td>
+                </tr>
+                <tr>
+                    <th>Applicant Name</th>
+                    <td>{{ application.full_name }}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ application.gender }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>{{ application.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <th>ID Number</th>
+                    <td>{{ application.id_number }}</td>
+                </tr>
+                <tr>
+                    <th>Location</th>
+                    <td>{{ application.location }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ application.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ application.phone }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Guardian Details</h3>
+        <table class="table">  <tbody>
+                <tr>
+                    <th>Guardian Name</th>
+                    <td>{{ application.guardian_first_name }}</td>
+                </tr>
+                <tr>
+                    <th>Guardian ID</th>
+                    <td>{{ application.guardian_id }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">School Details</h3>
+        <table class="table">  <tbody>
+                <tr>
+                    <th>Institution Name</th>
+                    <td>
+                        {% if application.institution_type == "primary" %}
+                            {{ application.institution_name_primary }}
+
+                        {% elif application.institution_type == "secondary" %} 
+                            {{ application.institution_name_secondary }} 
+
+                        {% elif application.institution_type == "undergraduate" %} 
+                            {{ application.institution_name_undergraduate }}      
+
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if application.institution_type == "Undergraduate" %}
+                <tr>
+                    <th>Course</th>
+                    <td>{{ application.course }}</td>
+                </tr>
+                <tr>
+                    <th>Registration NO.</th>
+                    <td>{{ application.reg_no }}</td>
+                </tr>
+                <tr>
+                    <th>Year of Completion</th>
+                    <td>{{ application.year_of_completion }}</td>
+                </tr>
+                <tr>
+                    <th>Annual Program Cost</th>
+                    <td>{{ application.annual_program_cost }}</td>
+                </tr>
+                <tr>
+                    <th>Amount Requested</th>
+                    <td>{{ application.amount_requested_undergraduate }}</td>
+                </tr>
+                {% elif application.institution_type == "secondary" %}
+                <tr>
+                    <th>Form</th>
+                    <td>{{ application.form }}</td>
+                </tr>
+                <tr>
+                    <th>NEMIS Number</th>
+                    <td>{{ application.nemis_secondary }}</td>
+                </tr>
+                <tr>
+                    <th>amount requested</th>
+                    <td>{{ application.amount_requested_secondary }}</td>
+                </tr>
+                
+                {% elif application.institution_type == "primary" %}
+                <tr>
+                    <th>NEMIS Number</th>
+                    <td>{{ application.nemis_number_primary }}</td>
+                </tr>
+                <tr>
+                    <th>Grade</th>
+                    <td>{{ application.grade }}</td>
+                </tr>
+                <tr>
+                    <th>amount requested</th>
+                    <td>{{ application.amount_requested_primary }}</td>
+                </tr>
+            {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Uploaded Documents</h3>
+
+    <p><strong>Personal ID:</strong> <a href="#" class="view-doc" data-file="{{ application.personal_id.url }}">View</a></p>
+    <p><strong>Fee Structure:</strong> <a href="#" class="view-doc" data-file="{{ application.fee_structure.url }}">View</a></p>
+    <p><strong>School Transcript:</strong> <a href="#" class="view-doc" data-file="{{ application.school_transcript.url }}">View</a></p>
+    
+    <!-- Document Viewer -->
+    <div id="document-viewer" style="display:none; margin-top: 20px;">
+        <h3>Document Preview</h3>
+        <iframe id="doc-frame" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.view-doc').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                let fileUrl = this.getAttribute('data-file');
+    
+                if (fileUrl) {
+                    console.log("Loading file:", fileUrl);  // Debugging line
+                    document.getElementById('doc-frame').src = fileUrl;
+                    document.getElementById('document-viewer').style.display = 'block';
+                } else {
+                    alert("File not found!");
+                }
+            });
+        });
+    </script>
+    
+
+  
+</div>
+
+
+
+{% endblock %}

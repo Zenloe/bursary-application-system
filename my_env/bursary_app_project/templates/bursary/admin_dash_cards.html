@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+           
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 5px;
+            height: 100vh;
+            
+        }
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            flex: 1;
+           
+        }
+        .top-box {
+            flex: 1;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+        }
+        .utilization-bar {
+            width: 100%;
+            height: 10px;
+            background: #ccc;
+            margin-top: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .utilization-fill {
+            height: 100%;
+            background: red;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            color: black;
+            font-weight: bold;
+            font-size: 13px; 
+            
+        }
+
+        .bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; 
+    margin-top: 20px;
+    gap: 10px;
+    
+}
+
+.chart-section {
+    flex: 1.5; 
+    background: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 300px; 
+}
+
+.stats-section {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stats-box {
+    background: #28a745;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+}
+#fundchart {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+
+
+    
+    .bg-c-blue {
+      background: linear-gradient(45deg, hsla(204, 100%, 63%, 0.952), #4a5c64);
+    }
+    .bg-c-green {
+      background: linear-gradient(45deg, #151e1d, #90cde9);
+    }
+    .bg-c-yellow {
+      background: linear-gradient(45deg,  #343a40, #607d8b);
+      border-left: 4px solid darkred;
+    }
+
+    .bg-c-pink {
+      background: linear-gradient(45deg, #30a33a, #4a5c64);
+    }
+    .number{
+        font-weight: 500;
+        color: red;
+        font-style: oblique;
+        font-size:40px ;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .card {
+            padding: 20px;
+            border-radius: 0 0 14px 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 4px solid #343a40;
+            
+               
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #000;
+        }
+        .card p {
+            font-size: 24px;
+            color: #000;
+            margin: 10px 0;
+        }
+        .card small {
+            font-size: 14px;
+            color: #666;
+        }
+        .card .status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .card .status div {
+            text-align: center;
+        }
+        .card .status div span {
+            font-size: 16px;
+            color: #666;
+        }
+        .card .status .number{
+            color: #4121c1;
+            font-size: 24px;
+        }
+        .card .status div p {
+            font-size: 18px;
+            color: #000;
+            margin: 5px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <div class="top-box bg-c-yellow">
+                Total Utilization
+                <p>{{ used_fund }} of {{ total_fund }}</p>
+                <div class="utilization-bar">
+                     <div class="utilization-fill" style="width: {{ utilization_percentage|floatformat:2 }}%;">{{ utilization_percentage|floatformat:2 }}% </div>
+
+                </div>
+            </div>
+            <div class="top-box bg-c-yellow">Undergraduate Applications
+                <a href="{% url 'institution_applications' 'Undergraduate' %}"><h2 class="text-right"><i class="fas fa-spinner f-left"></i><span>{{undergraduate_count}}</span></h2></a>
+            </div>
+            <div class="top-box bg-c-yellow">Secondary school Applications
+                <a href="{% url 'institution_applications' 'secondary' %}"><h2 class="text-right"><i class="fas fa-spinner f-left"></i><span>{{secondary_count}}</span></h2></a>
+            </div>
+            <div class="top-box bg-c-yellow">Primary school Applications 
+                <a href="{% url 'institution_applications' 'primary' %}"><h2 class="text-right"><i class="fas fa-spinner f-left"></i><span>{{primary_count}}</span></h2></a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>BURSARY PROCESSING OVERVIEW</h2>
+            <div class="status">
+                <div>
+                    <span>Total Applications</span>
+                    <p><a href="{% url 'all_applications' %}" class="btn btn-light"><span class="number">{{total_applications}}</span></a></h6></p>
+                </div>
+                <div>
+                    <span>Approved</span>
+                    <p><a href="{% url 'approved_applications' %}" class="btn btn-light"><span class="number">{{approved_applications}}</span></a></h6></p>
+                </div>
+                <div>
+                    <span>Disbursed</span>
+                    <p><a href="" class="btn btn-light"><span class="number">{{disbursed_applications}}</span></a></h6></p>
+                </div>
+                <div>
+                    <span>Flagged</span>
+                    <p><a href="{% url 'admin_pending_applications' %}" class="btn btn-light"><span class="number">{{flagged_applications}}</span></a></h6></p>
+                </div>
+                <div>
+                    <span>Total Schemes</span>
+                    <p><a href="{% url 'scheme_list' %}"><h2 class="text-right"><i class="fas fa-spinner f-left"></i><span>{{total_scheme}}</span></h2></a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+
+            <div class="chart-section">
+                <h6>Total Utilization </h6>
+                
+                <!-- Fix: Correct script src -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+                <!-- Chart Canvas -->
+                <canvas id="fundchart" width="100" height="100"></canvas>
+        
+                <script>
+                    window.onload = function() {
+                        const ctx = document.getElementById('fundchart').getContext('2d');
+                
+                        // Ensure values are JavaScript-friendly
+                        const disbursedfund = {{ used_fund|default:0 }};
+                        const totalfunds = {{ total_fund|default:0 }};
+                
+                        new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Used Funds', 'Remaining Funds'],
+                                datasets: [{
+                                    data: [disbursedfund, totalfunds - disbursedfund],
+                                    backgroundColor: ['#F6384', '#36A2EB'],
+                                    borderColor: ['rgba(255, 99, 132, 0.2)'],
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: true, // ensures circular shape
+                                layout: {
+                                    padding: 5 // Adds some spacing inside the chart
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'top' // Moves the legend below to save space
+                                    }
+                                }
+                            }
+                        });
+                    };
+                </script>
+                <a href="{% url 'export_fund_data' %}" class="btn btn-primary">Download Report</a>
+            </div>
+      
+          
+            <div class="stats-section">
+                  
+                <div class="stats-box bg-c-green">
+                    <h6>currently active admins</h6>
+                    <table>
+                        <th>name</th>
+                        <th>action</th>
+                        
+                    </table>
+                    
+                </div>
+                
+                    
+                
+               
+            </div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

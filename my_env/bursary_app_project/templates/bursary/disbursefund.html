@@ -1,0 +1,126 @@
+{% extends 'bursary/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+        body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fund-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: #e9f5ff;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.fund-item {
+    text-align: center;
+}
+
+.disburse-form p {
+    margin-bottom: 15px;
+}
+
+.disburse-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 20px auto;
+}
+
+.disburse-button:hover {
+    background-color: #45a049;
+}
+
+.messages {
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.note {
+      text-align: center;
+      height: 60px;
+       background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+    </style>
+<body>
+    <div class="container">
+        <h1 class="note">Disburse Funds</h1>
+
+        <div class="fund-summary">
+            <div class="fund-item">
+                <strong>Total Fund:</strong> <span id="total-fund">{{ fund.total_fund }}</span>
+            </div>
+            <div class="fund-item">
+                <strong>Used Fund:</strong> <span id="used-fund">{{ fund.used_fund }}</span>
+            </div>
+            <div class="fund-item">
+                <strong>Remaining Fund:</strong> <span id="remaining-fund">{{ fund.remaining_fund }}</span>
+            </div>
+        </div>
+
+        <form method="POST" class="disburse-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="disburse-button">Disburse</button>
+        </form>
+
+        <div class="messages">
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock content %}

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>SMS - Django</title>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+      
+    }
+
+    header {
+      position: fixed;
+      background: #22242A;
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end; /* Align to the right */
+      align-items: center; /* Vertically center */
+      padding: 5px;
+      z-index: 1;
+    }
+
+    .left_area h3 {
+      color: #fff;
+      margin: 0px;
+      text-transform: uppercase;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .left_area span {
+      color: #19B3D3;
+    }
+
+    .logout_btn {
+      padding: 5px;
+      background: #dd3b30;
+      text-decoration: none;
+      float: right;
+      margin-top: -30px;
+      margin-right: 40px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.5s;
+      transition-property: background;
+    }
+
+    .logout_btn:hover {
+      background: #aa251b;
+    }
+
+    .sidebar {
+      background: #2f323a;
+      margin-top: 70px;
+      padding-top: 70px;
+      position: fixed;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      transition: 0.5s;
+      transition-property: left;
+    }
+
+    .sidebar .profile_image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      
+    }
+
+    .sidebar h4 {
+      color: #ccc;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .sidebar a {
+      color: #fff;
+      display: block;
+      width: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      padding-left: 40px;
+      box-sizing: border-box;
+      transition: 0.5s;
+      transition-property: background;
+    }
+
+    .sidebar a:hover {
+      background:#e9e9e9;
+    }
+
+    .sidebar i {
+      padding-right: 10px;
+    }
+
+    label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      font-size: 20px;
+      margin: 5px 0;
+      transition: 0.5s;
+      transition-property: color;
+    }
+
+    label #sidebar_btn:hover {
+      color: #19B3D3;
+    }
+
+    #check:checked~.sidebar {
+      left: -190px;
+    }
+
+    #check:checked~.sidebar a span {
+      display: none;
+    }
+
+    #check:checked~.sidebar a {
+      font-size: 20px;
+      margin-left: 170px;
+      width: 80px;
+    }
+
+    .content {
+      margin-left: 250px;
+      background: url(background.png) no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: 0.5s;
+    }
+
+    #check:checked~.content {
+      margin-left: 60px;
+      padding-top: 70px;
+    }
+
+    #check {
+      display: none;
+    }
+  </style>
+  <style>
+ 
+.right_area{
+  display: flex;
+  justify-content: flex-end;
+  padding: 1px;
+
+}
+
+.account-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px; /* Space from the right edge */
+}
+
+.dropdown-btn {
+  background-color: #4CAF50; /* Example button color */
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0; /* Align to the right of the button */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.account-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    right: 0;
+    top: 0;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less */
+    position: relative; /* For close button positioning */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+/* Style the form elements as needed */
+#profile-form p label {
+  display: block; /* Place labels above inputs */
+  margin-bottom: 5px;
+}
+
+#profile-form input[type="text"],
+#profile-form input[type="email"]{
+  width: 50%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+  </style>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+</head>
+
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+    <label for="check">
+      <i class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+      <h3>BMS - Student</h3>
+    </div>
+    <div class="right_area">
+      <div class="account-dropdown">
+    
+        <button class="dropdown-btn">Account</button>
+        <div class="dropdown-content">
+          <a href="#" id="">Profile</a>
+          <a href="/logout" class="">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <!--<div id="profile-popup" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="profile-form" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+        </form>
+        <button type="submit">Save changes</button>
+      </div>
+    </div> -->
+  </header>
+
+  <!--header area end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+    <center>
+
+      <img src="{% static "images/scholar4.jpg" %}" class="profile_image" alt="">
+      <h4>{{request.user.first_name}}</h4>
+
+    </center>
+
+    <a href="/student-dashboard"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+    <a href="/student-view-scheme"><i class="fas fa-address-card"></i><span>view scheme</span></a>
+    <a href="/application_history"><i class="fas fa-address-card"></i><span>Application History</span></a>
+    <a href="/change_password"><i class="fas fa-address-card"></i><span>settings</span></a>
+    
+
+  </div>
+  <!--sidebar end-->
+
+
+  <!--content start-->
+  <div class="content">
+    <br><br><br><br><br>
+    {% block content %}
+
+    {% endblock content %}
+
+
+    <br><br><br>
+
+  </div>
+  <!--content end-->
+  <script>
+    const profileLink = document.getElementById('profile-link');
+    const profilePopup = document.getElementById('profile-popup');
+    const closeButton = profilePopup.querySelector('.close-button');
+
+    profileLink.addEventListener('click', (event) => {
+      event.preventDefault(); // prevent default link behaviour
+      profilePopup.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', () => {
+      profilePopup.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target == profilePopup) {
+        profilePopup.style.display = 'none';
+      }
+    });
+    //handle form submission()
+   /* document.getElementById('profile-form').addEventListener('submit', function(event) {
+      event.preventDefault();//prevent default form submission
+
+    });
+     // Example using Fetch API for AJAX submission:
+     fetch(this.action, {
+          method: this.method,
+          body: new FormData(this),
+          headers: {
+              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value, // Include CSRF token
+          }
+      })
+      .then(response => {
+           // Handle response (e.g., close popup, display message)
+          console.log("Profile updated successfully");
+          profilePopup.style.display = 'none';
+      })
+      .catch(error => {
+          console.error('Error updating profile:', error);
+      });
+*/
+  </script>
+
+</body>
+
+</html>

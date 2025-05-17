@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .about-container {
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-top: 5px;
+            margin: 20px auto;
+            width: 70%;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .section ul {
+            padding-left: 20px;
+        }
+        .contact a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+        }
+        .expandable:hover {
+            background: #d0e9f5;
+        }
+    </style>
+</head>
+<body>
+    {% include "bursary/navbar.html" %}
+    {%block content%}
+  
+
+    <section class="about-container">
+       
+        <div class="section">
+            <h2>Our Mission</h2>
+            <p>To empower students to achieve their academic dreams by simplifying and streamlining the bursary application and management process, ensuring equitable access to financial assistance.</p>
+        </div>
+        <div class="section">
+            <h2>Our Story</h2>
+            <p>Bursary 4 AppFMD was born out of a recognized need for a more efficient and transparent way to manage bursary applications. Developed in <span id="year">[Year]</span> by <span id="organization">[Your Organization/Team]</span>, the system aims to eliminate paperwork, reduce processing time, and ensure that funds reach deserving students promptly.</p>
+        </div>
+        <div class="section expandable">
+            <h2>Key Benefits for Students</h2>
+            <ul>
+                <li><strong>Easy Application:</strong> Our intuitive online portal makes applying for bursaries quick and straightforward.</li>
+                <li><strong>Real-time Tracking:</strong> Track the status of your application from submission to disbursement.</li>
+                <li><strong>Secure Data:</strong> Your personal and financial information is protected by industry-leading security measures.</li>
+                <li><strong>Centralized Information:</strong> Access all bursary opportunities in one place.</li>
+            </ul>
+        </div>
+        <div class="section expandable">
+            <h2>Key Benefits for Administrators</h2>
+            <ul>
+                <li><strong>Streamlined Workflow:</strong> Automate the bursary management process.</li>
+                <li><strong>Data-Driven Insights:</strong> Generate comprehensive reports and analytics.</li>
+                <li><strong>Improved Efficiency:</strong> Reduce administrative overhead.</li>
+                <li><strong>Enhanced Transparency:</strong> Maintain a clear and auditable record.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Bursary Criteria</h2>
+            <ul>
+                <li><strong>Academic Merit:</strong> Maintain a minimum GPA and strong academic record.</li>
+                <li><strong>Financial Need:</strong> Provide documentation demonstrating financial hardship.</li>
+                <li><strong>Field of Study:</strong> Some bursaries are targeted at specific fields like STEM or Education.</li>
+                <li><strong>Community Involvement:</strong> Participation in extracurricular activities may be considered.</li>
+            </ul>
+        </div>
+        <div class="section contact">
+            <h2>Learn More</h2>
+            <p>Visit our <a href="#">Bursary Program Page</a> for details on available bursaries, eligibility, and application deadlines.</p>
+            <h2>Contact Us</h2>
+            <p>Have questions? Reach out at <a href="zenbititah@gmail.com">zenbititah@gmail</a> or through our <a href="#">Contact Form</a>.</p>
+        </div>
+    </section>
+</body>
+</html>
+{%endblock content%}
+{% include "bursary/footer.html" %}

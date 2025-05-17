@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <style type="text/css">
+
+    .card {
+            padding: 10px;
+            border-radius: 0 0 14px 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 4px solid #343a40;
+            
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #000;
+        }
+        .card p {
+            font-size: 24px;
+            color: #000;
+            margin: 10px 0;
+        }
+        .card small {
+            font-size: 14px;
+            color: #666;
+        }
+        .card .status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .card .status div {
+            text-align: center;
+        }
+        .card .status div span {
+            font-size: 16px;
+            color: #666;
+        }
+        .card .status .number{
+            color: #4121c1;
+            font-size: 24px;
+        }
+        .card .status div p {
+            font-size: 18px;
+            color: #000;
+            margin: 5px 0;
+        }
+
+  </style>
+</head>
+
+<body>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <div class="card">
+    <h2>BURSARY PROCESSING OVERVIEW</h2>
+    <div class="status">
+        <div>
+            <span>Total Applications</span>
+            <p><a href="{% url 'application_history' %}" class="btn btn-light"><span class="number">{{total_applications}}</span></a></h6></p>
+        </div>
+        <div>
+            <span>Approved</span>
+            <p><a href="{% url 'application_history' %}" class="btn btn-light"><span class="number">{{approved_count}}</span></a></h6></p>
+        </div>
+        <div>
+            <span>Disbursed</span>
+            <p><a href="{% url 'application_history' %}" class="btn btn-light"><span class="number">{{dispersed_count}}</span></a></h6></p>
+        </div>
+        
+        <div>
+            <span>Schemes Available</span>
+            <p><a href="{% url 'student-view-scheme' %}"><h2 class="text-right"><i class="fas fa-spinner f-left"></i><span>{{total_scheme}}</span></h2></a></p>
+        </div>
+    </div>
+</div>
+
+
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+
+  </script>
+</body>
+
+</html>

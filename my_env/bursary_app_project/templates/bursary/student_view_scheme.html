@@ -1,0 +1,115 @@
+{% extends 'bursary/studentbase.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+    <style>
+    .application_scheme {
+    width: 90%; 
+    margin: 20px auto; 
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9; 
+}
+ 
+       h3 {
+           font-size: 1.5rem;
+           color: #007bff;
+           margin-bottom: 10px;
+           font-weight: 600;
+            
+        }
+        .scheme-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .scheme-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .scheme-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .scheme-card th, .scheme-card td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .scheme-card th {
+            background-color: #f5f5f5;
+        }
+        .scheme-card .apply-btn {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+        }
+        .scheme-card .apply-btn:hover {
+            background-color: #0056b3;
+        }
+        .no-schemes {
+            text-align: center;
+            color: #555;
+        }
+        .note {
+      text-align: center;
+      height: 50px;
+      background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+    </style>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<div class="application_scheme">
+    <h3 class="note">Available Schemes</h3>
+    <div class="scheme-container">
+        {% if schemes %}
+        {% for scheme in schemes %}
+        <div class="scheme-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Eligibility</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ scheme.name }}</td>
+                        <td>{{ scheme.description }}</td>
+                        <td>{{ scheme.eligibility_criteria }}</td>
+                        <td>{{ scheme.application_deadline }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a href="{% url 'application_form' scheme.id %}" class="apply-btn">Apply</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-schemes">No schemes available at the moment.</p>
+        {% endif %}
+    </div>
+</div>    
+</body>
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% extends 'bursary/adminbase.html' %} 
+{% block content %}
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 10px;
+            height: 100vh;
+        }
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .top-box {
+            flex: 1;
+            background: linear-gradient(45deg, #192724, #4a5c64);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .top-box:hover {
+            background: #0056b3;
+        }
+        .tablecontents {
+            margin-top: 20px;
+            display: none; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background:  -webkit-linear-gradient(left, #343a40, #607d8b);
+            color: white;
+        }
+
+    </style> 
+
+<body>
+    
+    <div class="container">
+        <!-- Top Section -->
+
+    
+      
+<div class="container">
+    <h2>All Applications</h2>
+    {% if students_applications %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Institution Type</th>
+                <th>Requested Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in students_applications %}
+            <tr>
+                <td>{{ app.full_name }}</td>
+                <td>{{ app.email }}</td>
+                <td>{{ app.institution_type|title }}</td>
+                <td>
+                    {% if app.institution_type == "primary" %}
+                        {{ app.amount_requested_primary }}
+                    {% elif app.institution_type == "secondary" %}
+                        {{ app.amount_requested_secondary }}
+                    {% elif app.institution_type == "Undergraduate" %}
+                        {{ app.amount_requested_undergraduate }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if app.status == "Pending" %}
+                        <span class="badge bg-warning">Pending</span>
+                    {% elif app.status == "Approved" %}
+                        <span class="badge bg-success">Approved</span>
+                    {% elif app.status == "Disbursed" %}
+                        <span class="badge bg-primary">Disbursed</span>
+                    {% elif app.status == "Flagged" %}
+                        <span class="badge bg-danger">Flagged</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Unknown</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'review_applications' app.id %}" class="btn btn-info btn-sm">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No applications found.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+

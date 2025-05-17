@@ -1,0 +1,8 @@
+{% extends 'bursary/studentbase.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<h1>Application Successful!</h1>
+<p>You have successfully applied for the scheme: {{ scheme.name }}</p>
+<a href="{% url 'student-view-scheme' %}">Back to Schemes</a>
+{% endblock content %}

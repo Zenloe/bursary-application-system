@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>BMS</title>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+     
+    }
+
+    header {
+      position: fixed;
+      background: #484848;
+      padding: 20px;
+      width: 100%;
+
+      z-index: 1;
+    }
+
+    .left_area h3 {
+      color: #fff;
+      margin: 0px;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .left_area span {
+      color: #19B3D3;
+    }
+
+    .logout_btn {
+      padding: 5px;
+      background: #dd3b30;
+      text-decoration: none;
+      float: right;
+      margin-top: -30px;
+      margin-right: 40px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.5s;
+
+    }
+
+    .logout_btn:hover {
+      background: #aa251b;
+    }
+
+    .sidebar {
+      background: #2f323a;
+      margin-top: 70px;
+      padding-top: 30px;
+      position: fixed;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      transition: 0.5s;
+      transition-property: left;
+    }
+
+    .sidebar .profile_image {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar h4 {
+      color: #ccc;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: #fff;
+      display: block;
+      width: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      padding-left: 40px;
+      box-sizing: border-box;
+      transition: 0.5s;
+
+    }
+
+    .sidebar a:hover {
+      background: #20283E;
+    }
+
+    .sidebar i {
+      padding-right: 10px;
+    }
+
+    label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      font-size: 20px;
+      margin: 5px 0;
+      transition: 0.5s;
+      transition-property: color;
+    }
+
+    label #sidebar_btn:hover {
+      color: #19B3D3;
+    }
+
+    #check:checked~.sidebar {
+      left: -190px;
+    }
+
+    #check:checked~.sidebar a span {
+      display: none;
+    }
+
+    #check:checked~.sidebar a {
+      font-size: 20px;
+      margin-left: 170px;
+      width: 80px;
+    }
+
+    .content {
+      margin-left: 250px;
+      background: url(background.png) no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: 0.5s;
+    }
+
+    #check:checked~.content {
+      margin-left: 60px;
+    }
+
+    #check {
+      display: none;
+    }
+
+.dropdown {
+    position: relative;
+    
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 10px;
+    top: 80%;
+    background-color: #20283E;
+    text-decoration: none;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: plum;
+}
+
+
+  
+    
+    
+  </style>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+</head>
+
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+    <label for="check">
+      <i class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+      <h3>Welcome to Admin Panel</h3>
+    </div>
+    <div class="right_area">
+      <a href="/logout" class="logout_btn">Logout</a>
+    </div>
+  </header>
+  <!--header area end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+    <!--
+    <center>
+
+      <img src="" class="profile_image" alt="">
+      <h4>Admin </h4>
+
+    </center>
+  -->
+
+    <a href="/admin-dashboard"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-chalkboard-teacher"></i><span>Scheme</span>
+      </a>
+      <ul class="dropdown-menu">
+          <li><a href="/admin-add-scheme">Add Scheme</a></li>
+          <li><a href="/scheme_list">Manage Scheme</a></li>
+      </ul>
+  </li>
+  
+    
+    <a href="/all_applications"><i class="fas fa-user-graduate"></i><span>applications</span></a>
+    <a href="/admin-manage-users"><i class="fas fa-address-card"></i><span>manage users</span></a>
+    <!--<a href="/admin-profile"><i class="fas fa-dollar"></i><span>profile</span></a>-->
+    <a href="/admin-notice"><i class="fas fa-bullhorn"></i><span>Notice</span></a>
+    <a href="/admin-settings"><i class="fas fa-bullhorn"></i><span>setings</span></a>
+    
+      
+       
+
+
+  </div>
+  <!--sidebar end-->
+  <script>
+    document.querySelector('.dropdown-toggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    var dropdownMenu = this.nextElementSibling;
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+  </script>
+
+  <!--content start-->
+  <div class="content">
+    <br><br><br><br><br>
+    {% block content %}
+
+    {% endblock content %}
+
+
+    <br><br><br>
+    {% include "bursary/footer.html" %}
+  </div>
+  <!--content end-->
+ 
+  
+</body>
+
+</html>

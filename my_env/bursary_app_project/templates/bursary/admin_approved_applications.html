@@ -1,0 +1,67 @@
+{% extends 'bursary/adminbase.html' %} 
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approved Applications</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .note {
+      text-align: center;
+      height: 50px;
+      background: -webkit-linear-gradient(left, #343a40, #607d8b);
+      color: #fff;
+      font-weight: bold;
+      line-height: 50px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="note">Approved Students</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Scheme</th>
+                    <th>institution_type</th>
+                    <th>amount requested by student</th>
+                    <th>Amount allocated to student</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in approved_students %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.scheme }}</td>
+                    <td>{{ student.institution_type }}</td>
+                    <td>
+                        {% if student.institution_type == "primary" and student.amount_requested_primary is not None %}
+                            {{ student.amount_requested_primary }}
+                        {% elif student.institution_type == "secondary" and student.amount_requested_secondary is not None %}
+                            {{ student.amount_requested_secondary }}
+                        {% elif student.institution_type == "Undergraduate" and student.amount_requested_undergraduate is not None %}
+                            {{ student.amount_requested_undergraduate }}
+                        {% else %}
+                            Not Provided
+                        {% endif %}
+                    </td>
+                    
+
+                    <td>
+                        <form method="POST" action="{% url 'disburse-funds' %}">
+                            {% csrf_token %}
+                            <input type="number" name="amount" min="0" required class="form-control">
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success">Disburse</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>{% endblock %}
+</html>
